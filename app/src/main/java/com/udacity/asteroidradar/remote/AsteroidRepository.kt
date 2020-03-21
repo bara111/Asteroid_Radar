@@ -8,9 +8,9 @@ import com.udacity.asteroidradar.database.AsteroidRoomDatabase
 import com.udacity.asteroidradar.models.PictureOfDay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class AsteroidRepository() : NasaDataSource {
-    private var asteroidRemoteDataSource: AsteroidRemoteDataSource = AsteroidRemoteDataSource()
+class AsteroidRepository @Inject constructor(var asteroidRemoteDataSource: AsteroidRemoteDataSource) : NasaDataSource {
     var data: List<Asteroid>? = null
     override fun getList(): List<Asteroid>? {
         return asteroidRemoteDataSource.datalist

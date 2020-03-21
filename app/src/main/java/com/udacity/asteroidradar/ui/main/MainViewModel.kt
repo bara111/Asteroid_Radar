@@ -1,4 +1,4 @@
-package com.udacity.asteroidradar.main
+package com.udacity.asteroidradar.ui.main
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -17,11 +17,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
-class MainViewModel : ViewModel() {
-    private var asteroidRepository: AsteroidRepository =
-        AsteroidRepository()
+class MainViewModel @Inject constructor( var asteroidRepository: AsteroidRepository) : ViewModel() {
+
     private var _asteroidDataList: MutableLiveData<List<Asteroid>>? = MutableLiveData()
     private var _mediaData: MutableLiveData<PictureOfDay?> = MutableLiveData()
     val asteroidDailyDataList: LiveData<List<Asteroid>>? get() = _asteroidDataList

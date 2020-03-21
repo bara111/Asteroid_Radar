@@ -10,13 +10,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
-import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 @Suppress("BlockingMethodInNonBlockingContext", "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class AsteroidRemoteDataSource(
+class AsteroidRemoteDataSource @Inject constructor(
+    var asteroidService: AsteroidService
 ) : NasaDataSource.Remote {
     var datalist: List<Asteroid>? = null
     var media: PictureOfDay? = null
@@ -28,16 +28,12 @@ class AsteroidRemoteDataSource(
         calendar.add(Calendar.DAY_OF_YEAR, 7)
         val currentForDayOfWeek = calendar.time
         val seventhDayOfWeek = dateFormat.format(currentForDayOfWeek)
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .build()
-        val service: AsteroidService = retrofit.create(AsteroidService::class.java)
+
         runBlocking {
             try {
                 val result =
-                    service.getData(todayDate, seventhDayOfWeek, API_KEY)
-                val imageOfTheDay = service.getPhoto(API_KEY)
+                    asteroidService.getData(todayDate, seventhDayOfWeek, API_KEY)
+                val imageOfTheDay = asteroidService.getPhoto(API_KEY)
                 if (result.isSuccessful) {
                     val imageDataString = imageOfTheDay.body()
                     val imageJsonObject = JSONObject(imageDataString)
