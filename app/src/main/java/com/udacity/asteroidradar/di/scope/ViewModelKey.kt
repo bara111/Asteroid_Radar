@@ -1,4 +1,4 @@
-package com.udacity.asteroidradar.di
+package com.udacity.asteroidradar.di.scope
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

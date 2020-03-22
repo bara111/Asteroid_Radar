@@ -1,4 +1,5 @@
-package com.udacity.asteroidradar.di
+package com.udacity.asteroidradar.di.module
+
 import com.udacity.asteroidradar.api.AsteroidService
 import com.udacity.asteroidradar.constants.Constants.BASE_URL
 import dagger.Module
@@ -7,15 +8,15 @@ import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
 
-@Module(includes = [ViewModelModule::class])
-class AppModule {
+@Module
+object RetrofitModule {
     @Singleton
     @Provides
-    fun provideGithubService(): AsteroidService {
+    fun getRetrofit(): AsteroidService {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
-            .build()
-            .create(AsteroidService::class.java)
+            .build().create(AsteroidService::class.java)
     }
+
 }

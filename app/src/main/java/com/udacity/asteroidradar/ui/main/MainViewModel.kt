@@ -9,8 +9,8 @@ import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.udacity.asteroidradar.Asteroid
-import com.udacity.asteroidradar.remote.AsteroidRepository
 import com.udacity.asteroidradar.models.PictureOfDay
+import com.udacity.asteroidradar.remote.AsteroidRepository
 import com.udacity.asteroidradar.workers.AsteroidWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -18,9 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-
-
-class MainViewModel @Inject constructor( var asteroidRepository: AsteroidRepository) : ViewModel() {
+class MainViewModel @Inject constructor(var asteroidRepository: AsteroidRepository) : ViewModel() {
 
     private var _asteroidDataList: MutableLiveData<List<Asteroid>>? = MutableLiveData()
     private var _mediaData: MutableLiveData<PictureOfDay?> = MutableLiveData()
